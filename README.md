@@ -30,7 +30,6 @@ Após instalada as dependências, basta executar o seguinte comando:
 ```bash
 npm run start:dev
 ```
-
 Para buildar a aplicação, basta executar o seguinte comando:
 
 ```bash
