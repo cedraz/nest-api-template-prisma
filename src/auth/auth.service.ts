@@ -7,18 +7,17 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
-import { ConfigService } from '@nestjs/config';
 import { ErrorMessagesHelper } from 'src/helpers/error-messages.helper';
 import { JwtPayload } from 'src/common/types/jwt-payload.interface';
 import { LoginResponseDto } from './dto/login-response.dto';
 import { RefreshTokenResponseDto } from './dto/refresh-token-response.dto';
+import { env } from 'src/config/env-validation';
 
 @Injectable()
 export class AuthService {
   constructor(
     private prismaService: PrismaService,
     private jwtService: JwtService,
-    private configService: ConfigService,
   ) {}
 
   async login(loginDto: LoginDto): Promise<LoginResponseDto> {
@@ -70,11 +69,11 @@ export class AuthService {
       userWithoutPassword,
       accessToken: await this.jwtService.signAsync(accessTokenPayload, {
         expiresIn: '4h',
-        secret: this.configService.get('ACCESS_TOKEN_SECRET'),
+        secret: env.ACCESS_TOKEN_SECRET,
       }),
       refreshToken: await this.jwtService.signAsync(refreshTokenPayload, {
         expiresIn: '7d',
-        secret: this.configService.get('REFRESH_TOKEN_SECRET'),
+        secret: env.REFRESH_TOKEN_SECRET,
       }),
       accessTokenExpiresIn,
       refreshTokenExpiresIn,
@@ -116,11 +115,11 @@ export class AuthService {
     return {
       accessToken: await this.jwtService.signAsync(accessTokenPayload, {
         expiresIn: '4h',
-        secret: this.configService.get('ACCESS_TOKEN_SECRET'),
+        secret: env.ACCESS_TOKEN_SECRET,
       }),
       refreshToken: await this.jwtService.signAsync(refreshTokenPayload, {
         expiresIn: '7d',
-        secret: this.configService.get('REFRESH_TOKEN_SECRET'),
+        secret: env.REFRESH_TOKEN_SECRET,
       }),
       accessTokenExpiresIn,
       refreshTokenExpiresIn,

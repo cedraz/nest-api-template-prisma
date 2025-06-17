@@ -3,22 +3,21 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { Request } from 'express';
 import { JwtPayload } from 'src/common/types/jwt-payload.interface';
 import { ErrorMessagesHelper } from 'src/helpers/error-messages.helper';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { env } from 'src/config/env-validation';
 
 @Injectable()
 export class RefreshAuthGuard extends JwtAuthGuard {
   constructor(
     protected jwtService: JwtService,
-    protected configService: ConfigService,
     protected readonly prismaService: PrismaService,
   ) {
-    super(jwtService, configService, prismaService);
+    super(jwtService, prismaService);
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -31,7 +30,7 @@ export class RefreshAuthGuard extends JwtAuthGuard {
 
     try {
       const payload = await this.jwtService.verifyAsync<JwtPayload>(token, {
-        secret: this.configService.get('REFRESH_TOKEN_SECRET'),
+        secret: env.REFRESH_TOKEN_SECRET,
       });
 
       request['user'] = payload;

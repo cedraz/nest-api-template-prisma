@@ -45,12 +45,6 @@ Demais comandos se encontram no arquivo `package.json` na parte "scripts".
 
 O Docker inicia apenas o banco de dados e o banco Redis para cache e para as filas.
 
-Para rodar todos os serviços usando docker, basta executar o seguinte comando:
-
-```bash
-docker compose -f docker-compose.prod.yml up --build
-```
-
 Para iniciar o docker, basta executar o seguinte comando:
 
 ```bash
@@ -73,7 +67,7 @@ Para abrir um tunnel para a aplicação, instale o cloudflared e execute o segui
 cloudflared tunnel --url http://localhost:3000
 ```
 
-** Lembre-se de substituir o `3000` pela porta que a aplicação está rodando. **
+**Lembre-se de substituir o `3000` pela porta que a aplicação está rodando.**
 
 ## Banco de dados
 
@@ -84,6 +78,14 @@ Toda o esquema do banco é gerado através do Prisma, para gerar a migration e a
 ```bash
 npx prisma migrate dev
 ```
+
+Para resetar o banco de dados e aplicar as migrations novamente, basta executar o seguinte comando:
+
+```
+npx prisma migrate reset
+```
+
+(**Isso irá apagar todos os dados do banco de dados, então tenha cuidado ao utilizar esse comando.**)
 
 **Para produção**
 
@@ -108,8 +110,19 @@ Documentação automizada, basta seguir a lógica utilizada nos DTOs e nos contr
 ### Interceptors e Pipes
 
 ```typescript
-app.useGlobalInterceptors(new PrismaErrorsInterceptor());
-app.useGlobalPipes(new ValidationPipe());
+app.useGlobalPipes(
+  new ValidationPipe({
+    transform: true,
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    disableErrorMessages: false,
+  }),
+);
+
+app.useGlobalInterceptors(
+  new PrismaErrorsInterceptor(),
+  new ClassSerializerInterceptor(app.get(Reflector)),
+);
 ```
 
 O `PrismaErrorsInterceptor` é um interceptor que captura os erros do Prisma e os transforma em erros mais amigáveis para o usuário.
@@ -129,3 +142,7 @@ Nessa pasta está apenas um arquivo .helper que serve como tradução de alguns 
 ### Jobs
 
 Nessa pasta se encontra toda a lógica das filas e as filas criadas, isso inclui envio de email através do BullMQ e uma função para limpar os "verification_requests" que já foram utilizados ou que estão expirados.
+
+### Providers
+
+Nessa pasta se encontram os providers que são utilizados na aplicação, que são essencialmente APIs externas que são consumidas pela aplicação, como o Google, CLoudinary, Stripe, Via CEP e o serviço de envio de email.

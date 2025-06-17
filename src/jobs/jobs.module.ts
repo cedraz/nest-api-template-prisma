@@ -3,7 +3,7 @@ import { SendEmailConsumerService } from './consumers/send-email-consumer.servic
 import { SendEmailQueueService } from './queues/send-email-queue.service';
 import { MailerService } from 'src/providers/mailer/mailer.service';
 import { BullModule } from '@nestjs/bullmq';
-import { GoogleSheetsService } from 'src/services/google-sheets/google-sheets.service';
+import { GoogleSheetsService } from 'src/providers/google-sheets/google-sheets.service';
 import { IngestEventQueueService } from './queues/ingest-event-queue.service';
 import { IngestEventConsumerService } from './consumers/ingest-event-consumer.service';
 import { PrismaService } from 'src/prisma/prisma.service';

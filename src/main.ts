@@ -1,12 +1,11 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { PrismaErrorsInterceptor } from './prisma/prisma-errors.interceptor';
-import { ConfigService } from '@nestjs/config';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { CustomLogger } from './logger/logger.service';
 import { GlobalErrorFilter } from './common/filters/global-error.filter';
 import { AppModule } from './app.module';
-import { env } from './config/env';
+import { env } from './config/env-validation';
 
 async function bootstrap() {
   console.time('server-started');
@@ -66,8 +65,8 @@ async function bootstrap() {
   await app.listen(port, '0.0.0.0');
 
   console.log(`
-    Server running in http://localhost:${port ?? 8000}
-    API documentation in http://localhost:${port ?? 8000}/docs
+    Server running in http://localhost:${port}
+    API documentation in http://localhost:${port}/docs
     `);
 
   console.timeEnd('server-started');

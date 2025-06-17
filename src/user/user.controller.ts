@@ -65,7 +65,7 @@ export class UserController {
   ) {
     const user = req.user as JwtPayload;
     return this.userService.recoverPassword({
-      email: user.email!,
+      email: user.email,
       password: recoverPasswordDto.password,
     });
   }

@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { VerificationType } from '@prisma/client';
 import { ErrorMessagesHelper } from 'src/helpers/error-messages.helper';
 import { ValidateOneTimeCodeDto } from './dto/validate-one-time-code.dto';
-import { env } from 'src/config/env';
+import { env } from 'src/config/env-validation';
 import { VerifyUserAccountDto } from './dto/verify-user-account.dto';
 import {
   OneTimeCode,

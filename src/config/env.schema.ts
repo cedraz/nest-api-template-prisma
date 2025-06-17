@@ -1,8 +1,30 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 
 export class EnvironmentVariables {
   @IsString()
-  SWAGGER_API_URL: string;
+  @IsNotEmpty()
+  CLOUDINARY_URL: string;
+
+  @IsEmail()
+  GOOGLE_CLIENT_EMAIL: string;
+
+  @IsString()
+  @IsNotEmpty()
+  GOOGLE_PRIVATE_KEY: string;
+
+  @IsString()
+  @IsNotEmpty()
+  GOOGLE_PROJECT_ID: string;
+
+  @IsString()
+  @IsNotEmpty()
+  GOOGLE_SPREADSHEET_ID: string;
 
   @IsString()
   @IsNotEmpty()
@@ -34,18 +56,6 @@ export class EnvironmentVariables {
 
   @IsBoolean()
   MAIL_SECURE: boolean;
-
-  @IsString()
-  @IsNotEmpty()
-  CLOUDINARY_CLOUD_NAME: string;
-
-  @IsString()
-  @IsNotEmpty()
-  CLOUDINARY_API_KEY: string;
-
-  @IsString()
-  @IsNotEmpty()
-  CLOUDINARY_API_SECRET: string;
 
   @IsString()
   @IsNotEmpty()

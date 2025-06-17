@@ -10,7 +10,7 @@ import { ErrorMessagesHelper } from 'src/helpers/error-messages.helper';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { Request } from 'express';
 import { JwtPayload } from 'src/common/types/jwt-payload.interface';
-import { env } from 'src/config/env';
+import { env } from 'src/config/env-validation';
 
 @Injectable()
 export class PasswordRecoveryAuthGuard

@@ -1,15 +1,16 @@
-// cloudinary.provider.ts
-import { ConfigService } from '@nestjs/config';
-import { ConfigOptions, v2 } from 'cloudinary';
+import { v2 } from 'cloudinary';
+import { env } from 'src/config/env-validation';
 
 export const CloudinaryProvider = {
   provide: 'CLOUDINARY_CONFIG',
-  useFactory: (configService: ConfigService): ConfigOptions => {
+  useFactory: () => {
+    const cloudinaryUrl = env.CLOUDINARY_URL;
+    const url = new URL(cloudinaryUrl);
+
     return v2.config({
-      cloud_name: configService.get('CLOUDINARY_CLOUD_NAME'),
-      api_key: configService.get('CLOUDINARY_API_KEY'),
-      api_secret: configService.get('CLOUDINARY_API_SECRET'),
+      cloud_name: url.hostname,
+      api_key: url.username,
+      api_secret: url.password,
     });
   },
-  inject: [ConfigService],
 };

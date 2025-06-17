@@ -1,8 +1,8 @@
 import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { IngestEventDto } from 'src/common/dto/ingest-event.dto';
 import { QueueNames } from '../utils/queue-names.helper';
+import { IngestEventDto } from '../dto/ingest-event.dto';
 
 @Injectable()
 export class IngestEventQueueService {

@@ -5,15 +5,15 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { BullModule } from '@nestjs/bullmq';
 import { ScheduleModule } from '@nestjs/schedule';
-import { StripeModule } from './stripe/stripe.module';
-import { env, validate } from './config/env';
+import { StripeModule } from './providers/stripe/stripe.module';
+import { env, validate } from './config/env-validation';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { ViaCepModule } from './providers/via-cep/via-cep.module';
 import { JobsModule } from './jobs/jobs.module';
 import { MailerModule } from './providers/mailer/mailer.module';
 import { CloudinaryModule } from './providers/cloudinary/cloudinary.module';
-import { GoogleSheetsModule } from './services/google-sheets/google-sheets.module';
+import { GoogleSheetsModule } from './providers/google-sheets/google-sheets.module';
 import { OneTimeCodeModule } from './one-time-code/one-time-code.module';
 
 @Module({

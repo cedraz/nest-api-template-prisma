@@ -4,6 +4,8 @@ import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
+  console.time('Seed completed successfully! 🌿');
+
   const users = [
     {
       name: 'User One',
@@ -19,13 +21,15 @@ async function main() {
 
   for (const user of users) {
     const salt = await bcrypt.genSalt(10);
-    const password_hash = await bcrypt.hash(user.password, salt);
+    const passwordHash = await bcrypt.hash(user.password, salt);
 
     await prisma.user.create({
       data: {
         name: user.name,
         email: user.email,
-        password_hash,
+        passwordHash,
+        emailVerifiedAt: new Date(),
+        phone: '71999999999',
       },
     });
   }
@@ -34,8 +38,12 @@ async function main() {
 main()
   .catch((e) => {
     console.error(e);
+    console.timeEnd('Error seeding the database!');
     process.exit(1);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
+  .finally(() => {
+    (async () => {
+      console.timeEnd('Seed completed successfully! 🌿');
+      await prisma.$disconnect();
+    })();
   });

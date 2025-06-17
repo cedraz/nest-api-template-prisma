@@ -3,11 +3,14 @@ const notFoundErrorMessagesHelper = {
   SUBSCRIPTION_NOT_FOUND: 'Assinatura não encontrada.',
   ADMIN_STRIPE_PLAN_NOT_FOUND: 'Plano do usuário não encontrado.',
   ADDRESS_NOT_FOUND: 'Endereço não encontrado para o CEP informado.',
+  FILE_NOT_FOUND: 'Arquivo não encontrado.',
 };
 
 const dynamicErrorMessagesHelper = {
   serviceUnavailableException: (serviceName: string) =>
     `O serviço ${serviceName} está indisponível no momento. Tente novamente mais tarde.`,
+  fileSizeLimitExceeded: (size: string) =>
+    `O tamanho do arquivo excede o limite permitido de ${size}. Por favor, envie um arquivo menor.`,
 };
 
 export const ErrorMessagesHelper = {
@@ -26,6 +29,7 @@ export const ErrorMessagesHelper = {
   INVALID_PASSWORD: 'Senha inválida.',
   NO_TOKEN_PROVIDED: 'Nenhum token fornecido.',
   INVALID_TOKEN: 'Token inválido.',
+  INVALID_IMAGE_FORMAT: 'Formato de imagem inválido.',
   ...notFoundErrorMessagesHelper,
   ...dynamicErrorMessagesHelper,
 };

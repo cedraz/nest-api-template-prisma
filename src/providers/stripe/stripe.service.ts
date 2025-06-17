@@ -1,15 +1,15 @@
-import Stripe from 'stripe';
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateStripeMobileCheckoutDto } from './dto/create-stripe-mobile-checkout.dto';
-import { CreateStripeCustomerDto } from './dto/create-stripe-customer.dto';
 import { CreateStripeSCheckoutSessionDto } from './dto/create-stripe-checkout-session.dto';
-import { HandleStripeWebhookDto } from './dto/handle-stripe-webhook.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { env } from 'src/config/env';
-import dayjs from 'dayjs';
+import { CreateStripeMobileCheckoutDto } from './dto/create-stripe-mobile-checkout.dto';
 import { FindUserByStripeInfoDto } from './dto/find-user-by-stripe-info.dto';
-import { ErrorMessagesHelper } from 'src/helpers/error-messages.helper';
 import { UpdateUserStripeInfoDto } from './dto/update-user-stripe-info.dto';
+import { CreateStripeCustomerDto } from './dto/create-stripe-customer.dto';
+import { HandleStripeWebhookDto } from './dto/handle-stripe-webhook.dto';
+import { ErrorMessagesHelper } from 'src/helpers/error-messages.helper';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { env } from 'src/config/env-validation';
+import Stripe from 'stripe';
+import dayjs from 'dayjs';
 
 @Injectable()
 export class StripeService {
@@ -190,7 +190,7 @@ export class StripeService {
     switch (stripeEvent.type) {
       case 'customer.subscription.updated':
         await this.handleSubscriptionProcess({
-          object: stripeEvent.data.object as Stripe.Subscription,
+          object: stripeEvent.data.object,
         });
         break;
       default:
@@ -200,7 +200,7 @@ export class StripeService {
 
   async handleSubscriptionProcess(event: { object: Stripe.Subscription }) {
     const stripeCustomerId = event.object.customer as string;
-    const stripeSubscriptionId = event.object.id as string;
+    const stripeSubscriptionId = event.object.id;
     const stripeSubscriptionStatus = event.object.status;
     const stripePriceId = event.object.items.data[0].price.id;
 

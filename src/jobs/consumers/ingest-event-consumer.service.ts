@@ -1,8 +1,8 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
-import { IngestEventDto } from 'src/common/dto/ingest-event.dto';
-import { GoogleSheetsService } from 'src/services/google-sheets/google-sheets.service';
+import { GoogleSheetsService } from 'src/providers/google-sheets/google-sheets.service';
 import { QueueNames } from '../utils/queue-names.helper';
+import { IngestEventDto } from '../dto/ingest-event.dto';
 
 @Processor(QueueNames.INGEST_EVENT_QUEUE)
 export class IngestEventConsumerService extends WorkerHost {

@@ -8,7 +8,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { JwtPayload } from 'src/common/types/jwt-payload.interface';
-import { env } from 'src/config/env';
+import { env } from 'src/config/env-validation';
 import { ErrorMessagesHelper } from 'src/helpers/error-messages.helper';
 import { PrismaService } from 'src/prisma/prisma.service';
 

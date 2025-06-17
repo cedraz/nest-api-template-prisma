@@ -1,4 +1,4 @@
-import { UserSimple } from 'src/user/entities/user-simple.entity';
+import { UserSimple } from 'src/user/entities/user.entity';
 
 export class LoginResponseDto {
   userWithoutPassword: UserSimple;

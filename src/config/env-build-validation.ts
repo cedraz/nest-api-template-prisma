@@ -7,7 +7,7 @@ dotenv.config();
 async function runValidation() {
   try {
     console.log('🔍 Validando variáveis de ambiente...');
-    await import('./env');
+    await import('./env-validation');
     console.log('✅ Todas as variáveis de ambiente são válidas!');
 
     exit(0);
