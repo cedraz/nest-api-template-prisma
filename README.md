@@ -45,7 +45,7 @@ Demais comandos se encontram no arquivo `package.json` na parte "scripts".
 
 O Docker inicia apenas o banco de dados e o banco Redis para cache e para as filas.
 
-Para iniciar o docker, basta executar o seguinte comando:
+Para iniciar o docker basta executar o seguinte comando:
 
 ```bash
 docker compose up
