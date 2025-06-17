@@ -22,7 +22,8 @@ Primeiramente é necessário instalar as dependências do projeto, para isso bas
 ```bash
 npm install
 ```
-**O Template foi criado utilizando a versão 22.14.0, ao tentar instalar as dependências com versões abaixo dessa pode ocorrer erros.**
+
+**O Template foi criado utilizando a versão 22.14.0, ao tentar instalar as dependências com versões abaixo dessa pode resultar em erros.**
 
 Após instalada as dependências, basta executar o seguinte comando:
 
@@ -44,7 +45,7 @@ Demais comandos se encontram no arquivo `package.json` na parte "scripts".
 
 O Docker inicia apenas o banco de dados e o banco Redis para cache e para as filas.
 
-Para iniciar o docker, basta executar o seguinte comando:
+Para iniciar o docker basta executar o seguinte comando:
 
 ```bash
 docker compose up
