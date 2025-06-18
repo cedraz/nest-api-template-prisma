@@ -22,6 +22,7 @@ Primeiramente é necessário instalar as dependências do projeto, para isso bas
 ```bash
 npm install
 ```
+
 **O Template foi criado utilizando a versão 22.14.0, ao tentar instalar as dependências com versões abaixo dessa pode resultar em erros.**
 
 Após instalada as dependências, basta executar o seguinte comando:
